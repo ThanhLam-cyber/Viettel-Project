@@ -9,8 +9,6 @@ const {buissiness_package,metadataNote} = require('../src/data/buisiness_package
 const app = express();
 const PORT = process.env.PORT || 3000;
 const allowedOrigins = [
-  "http://localhost:5173", // cho dev
-  "https://viettel-frontend.onrender.com", // domain frontend thực tế,
   "https://viettel-project.vercel.app/"
 ];
 
