@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-
+const API_URL = import.meta.env.VITE_API_URL;
 const sendConsultationRequest = async (contactInfo) => {
   try {
-    const response = await fetch("http://localhost:3000/register-consult", {
+    const response = await fetch(`${API_URL}/register-consult`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

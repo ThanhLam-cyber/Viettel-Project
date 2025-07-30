@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function RegisterFormModal({ onClose, pkg }) {
     const [formData, setFormData] = useState({
         name: "",
@@ -39,7 +39,7 @@ function RegisterFormModal({ onClose, pkg }) {
                 token, // thêm token vào
             };
 
-            const response = await fetch("http://localhost:3000/register", {
+            const response = await fetch(`${API_URL}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

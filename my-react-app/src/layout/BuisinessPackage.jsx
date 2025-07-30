@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import BuisinessPackageRegisterForm from "../component/BuisinessPackageRegisterForm";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function BuisinessPackage() {
     const [packages, setPackages] = useState([]);
     const [note, setNote] = useState("");
@@ -12,7 +12,7 @@ function BuisinessPackage() {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch("http://localhost:3000/business-package")
+        fetch(`${API_URL}/business-package`)
             .then((res) => res.json())
             .then((data) => {
                 setPackages(data.buissiness_package);

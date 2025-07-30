@@ -12,13 +12,13 @@ function InternetPlanDetail() {
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+const API_URL = import.meta.env.VITE_API_URL;
   // Fetch data from API
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:3000/internet-data");
+        const response = await fetch(`${API_URL}/internet-data`);
         if (!response.ok) {
           throw new Error("Failed to fetch internet data");
         }

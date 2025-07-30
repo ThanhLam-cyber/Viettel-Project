@@ -10,7 +10,7 @@ import PackageList from "../layout/PackageList";
 import CameraService from "../layout/CameraService";
 import DigitalUtilitiesSection from "../layout/DigitalUtilitiesSection";
 import BuisinessPackage from "../layout/BuisinessPackage";// Sửa chính tả
-
+const API_URL = import.meta.env.VITE_API_URL;
 function HomePage() {
   const { setRefs } = useOutletContext();
   const internetRef = useRef(null);
@@ -23,7 +23,7 @@ function HomePage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/internet-data")
+    fetch(`${API_URL}/internet-data`)
       .then((res) => {
         if (!res.ok) throw new Error(`Lỗi HTTP: ${res.status}`);
         return res.json();
@@ -37,7 +37,7 @@ function HomePage() {
         setError("Không thể tải dữ liệu internet. Vui lòng thử lại sau.");
       });
 
-    fetch("http://localhost:3000/sim-data")
+    fetch(`${API_URL}/sim-data`)
       .then((res) => {
         if (!res.ok) throw new Error(`Lỗi HTTP: ${res.status}`);
         return res.json();

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function CameraService() {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ function CameraService() {
     setStatus("Đang gửi...");
 
     try {
-      const res = await fetch("http://localhost:3000/register-camera", {
+      const res = await fetch(`${API_URL}/register-camera`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+const API_URL = import.meta.env.VITE_API_URL;
+
+fetch(`${API_URL}/sim-data`)
+  .then(res => res.json())
+  .then(data => console.log(data));
 
 function BuisinessPackageRegisterForm({ onClose, pkg }) {
     const [formData, setFormData] = useState({
@@ -37,7 +42,7 @@ function BuisinessPackageRegisterForm({ onClose, pkg }) {
                 token,
             };
 
-            const response = await fetch("http://localhost:3000/register", {
+            const response = await fetch(`${API_URL}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

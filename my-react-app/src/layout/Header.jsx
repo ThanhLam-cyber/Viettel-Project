@@ -5,7 +5,7 @@ import LogoViettel from "../assets/logos/LogoViettel.png";
 import SearchBar from "../component/SearchBar";
 import HeaderNavItem from "../component/HeaderNavItem";
 import MobileSidebar from "../component/MobileSideBar";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [internetData, setInternetData] = useState([]);
@@ -24,7 +24,7 @@ function Header() {
         const fetchInternetData = async () => {
             try {
                 setLoadingInternet(true);
-                const response = await fetch("http://localhost:3000/internet-data");
+                const response = await fetch(`${API_URL}/internet-data`);
                 if (!response.ok) {
                     throw new Error("Không thể tải dữ liệu internet");
                 }
@@ -45,7 +45,7 @@ function Header() {
         const fetchBusinessPackages = async () => {
             try {
                 setLoadingBusiness(true);
-                const response = await fetch("http://localhost:3000/business-package");
+                const response = await fetch(`${API_URL}/business-package`);
                 if (!response.ok) {
                     throw new Error("Không thể tải dữ liệu gói doanh nghiệp");
                 }
@@ -66,7 +66,7 @@ function Header() {
         const fetchSimData = async () => {
             try {
                 setLoadingSim(true);
-                const response = await fetch("http://localhost:3000/sim-data");
+                const response = await fetch(`${API_URL}/sim-data`);
                 if (!response.ok) {
                     throw new Error("Không thể tải dữ liệu SIM");
                 }

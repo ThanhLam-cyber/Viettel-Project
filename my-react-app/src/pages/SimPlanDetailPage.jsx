@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Wifi, MapPin, Gift, PhoneCall, Tv } from "lucide-react";
 import PackageCard from "../component/PackageCard";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function SimPlanDetailPage() {
   const { planCode } = useParams();
   const [simData, setSimData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/sim-data") // đổi domain nếu cần
+    fetch(`${API_URL}/sim-data`) // đổi domain nếu cần
       .then((res) => res.json())
       .then((data) => {
         setSimData(data);
