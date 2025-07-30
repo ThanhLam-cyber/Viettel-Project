@@ -9,7 +9,7 @@ const {buissiness_package,metadataNote} = require('../src/data/buisiness_package
 const app = express();
 const PORT = process.env.PORT || 3000;
 const allowedOrigins = [
-  "https://viettel-project.vercel.app/"
+  "https://viettel-project.vercel.app"
 ];
 
 app.use(cors({
