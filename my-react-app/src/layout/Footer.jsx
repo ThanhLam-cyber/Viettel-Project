@@ -1,5 +1,5 @@
 import React from "react";
-import LogoViettel from "../assets/logos/LogoViettel.png";
+// import LogoViettel from "../assets/logos/LogoViettel.png";
 export default function Footer() {
   return (
 <footer className="bg-[#f9f9f9] text-black py-10 px-4 sm:px-6 lg:px-20">
