@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate,Link } from "react-router-dom";
 import HamburgerIcon from "../assets/images/hamburger-menu-svgrepo-com.svg";
-import LogoViettel from "../assets/logos/LogoViettel.png";
+import LogoViettel from "/logoViettel.png";
 import SearchBar from "../component/SearchBar";
 import HeaderNavItem from "../component/HeaderNavItem";
 import MobileSidebar from "../component/MobileSideBar";

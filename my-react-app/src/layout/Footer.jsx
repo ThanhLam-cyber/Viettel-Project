@@ -1,5 +1,5 @@
 import React from "react";
-// import LogoViettel from "../assets/logos/LogoViettel.png";
+import LogoViettel from "/logoViettel.png";
 export default function Footer() {
   return (
 <footer className="bg-[#f9f9f9] text-black py-10 px-4 sm:px-6 lg:px-20">
@@ -7,7 +7,7 @@ export default function Footer() {
 
     {/* Logo + mô tả */}
     <div>
-      {/* <img src={LogoViettel} alt="Viettel" className="h-10 mb-4" /> */}
+      <img src={LogoViettel} alt="Viettel" className="h-10 mb-4" />
       <p className="text-gray-600 leading-relaxed">
         <span className="text-[#ed1b2f] font-semibold">Viettel</span> – tiên phong trong chuyển đổi số, cung cấp giải pháp viễn thông, công nghệ và dịch vụ tiện ích số toàn diện.
       </p>
