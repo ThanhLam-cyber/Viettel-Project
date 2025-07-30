@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+
+@layer base {
+  h2 {
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: clamp(1px, 2vw, 40px);
+    font-size: clamp(1.2rem, 5vw, 2.5rem);
+  }
+  @media (min-width: 768px) {
+  h2 {
+    text-align: center;
+    margin-left: 0;
+  }
+}
+
+}
