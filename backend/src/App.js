@@ -7,10 +7,17 @@ const client = require("prom-client");
 const { sendEmailRegister, sendCameraRegisterEmail,sendConsultEmail } = require("../src/email/account");
 const {buissiness_package,metadataNote} = require('../src/data/buisiness_package')
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+const allowedOrigins = [
+  "http://localhost:5173", // cho dev
+  "https://viettel-frontend.onrender.com" // domain frontend thực tế
+];
 
-// === Middleware ===
-app.use(cors());
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(helmet()); 
 
