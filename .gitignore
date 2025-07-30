@@ -3,3 +3,4 @@
 /backend/.env
 /my-react-app/node_modules
 /my-react-app/package-lock.json
+/my-react-app/.env
