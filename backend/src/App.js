@@ -9,6 +9,7 @@ const {buissiness_package,metadataNote} = require('../src/data/buisiness_package
 const app = express();
 const PORT = process.env.PORT || 3000;
 const allowedOrigins = [
+  "viettel-project-djoan-thanh-lams-projects-d7d2a1fb.vercel.app",
   "https://viettel-project-git-master-djoan-thanh-lams-projects-d7d2a1fb.vercel.app"
   
 ];
