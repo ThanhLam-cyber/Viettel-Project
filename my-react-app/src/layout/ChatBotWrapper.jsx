@@ -37,7 +37,7 @@ const ChatBotWrapper = () => {
   useEffect(() => {
     console.log("Fetching chat script...");
     setIsLoading(true);
-    fetch("http://localhost:3000/chat-script")
+    fetch(`${API_URL}/chat-script`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
         return res.json();

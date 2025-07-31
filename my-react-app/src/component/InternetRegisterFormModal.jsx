@@ -27,7 +27,7 @@ function RegisterFormModal({ onClose, pkg }) {
 
 
             const token = await grecaptcha.enterprise.execute(
-                '6LdJPIcrAAAAADPzf1Tgqq85Ht2qhPt2CoPXZXkN',
+                '6LcVEZUrAAAAAP-OdIHzIR932u0fJKjRAJ-YITot',
                 { action: 'submit' }
             );
 
