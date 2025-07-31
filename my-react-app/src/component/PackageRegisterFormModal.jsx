@@ -26,7 +26,7 @@ function PackageRegisterFormModal({ onClose, pkg }) {
       });
 
       const token = await grecaptcha.enterprise.execute(
-        '6LcVEZUrAAAAAP-OdIHzIR932u0fJKjRAJ-YITot',
+        '6Lfvx5QrAAAAAAmyx2SngvEd7s5NS2GGpkTra96v',
         { action: 'submit' }
       );
 
