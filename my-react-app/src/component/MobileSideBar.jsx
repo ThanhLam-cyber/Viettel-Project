@@ -230,7 +230,7 @@ function MobileSidebar({
         ))}
         <div className="pt-6 border-t border-gray-200">
           <p className="text-lg font-semibold text-[#D70026]">
-            📞 Hotline: <span className="font-bold">0905 579 868</span>
+            📞 Hotline: <span className="font-bold">0327555666</span>
           </p>
         </div>
       </nav>
