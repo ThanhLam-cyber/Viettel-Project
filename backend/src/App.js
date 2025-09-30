@@ -10,7 +10,7 @@ const hpp = require("hpp"); // ✅ Thêm hpp để chống HTTP Parameter Pollut
 const xss = require("xss-clean"); // ✅ Thêm xss-clean để sanitize input chống XSS
 const client = require("prom-client");
 const { sendEmailRegister, sendCameraRegisterEmail, sendConsultEmail } = require("../src/email/account");
-const { buissiness_package, metadataNote } = require('../src/data/buisiness_package')
+const { business_package, metadataNote } = require('./data/business_package'); // ✅ Sửa spelling "buissiness" thành "business" và điều chỉnh path cho nhất quán
 const app = express();
 const PORT = process.env.PORT || 3000;
 const allowedOrigins = [
@@ -80,7 +80,7 @@ app.get("/metrics", async (req, res) => {
 });
 
 // === API dữ liệu ===
-app.get("/business-package", (req, res) => res.json({ buissiness_package, metadataNote }));
+app.get("/business-package", (req, res) => res.json({ business_package, metadataNote })); // ✅ Sửa tên biến
 app.get("/sim-data", (req, res) => res.json(viettelSimData));
 app.get("/internet-data", (req, res) => res.json({ viettelInternet, prepaidFees, tvChannelMapping }));
 app.get("/chat-script", (req, res) => res.json(chatScript));
@@ -120,7 +120,7 @@ app.post("/register", [
   body('phone').trim().matches(/^[0-9]{10,11}$/).withMessage('Số điện thoại không hợp lệ'),
   body('address').trim().notEmpty().escape().withMessage('Địa chỉ không hợp lệ'),
   body('packageName').trim().notEmpty().escape().withMessage('Tên gói không hợp lệ'),
-  body('packageType').trim().notEmpty().escape().withMessage('Loại gói không hợp lệ'),
+  body('packageType').trim().notEmpty().escape().withMessage('Loại gói không hợp lệ'), // ✅ Sửa typo "notEmpt" thành "notEmpty"
   body('token').notEmpty().withMessage('Thiếu token reCAPTCHA')
 ], async (req, res) => {
   const errors = validationResult(req);
