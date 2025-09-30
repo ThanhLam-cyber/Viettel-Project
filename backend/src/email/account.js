@@ -8,8 +8,8 @@ const sendEmailRegister = async ({ name, phone, address, packageName, packageTyp
     }
 
     const msg = {
-      to: "lamdt.23ns@vku.udn.vn", // <- Người nhận (email của bạn)
-      from: "lamdt.23ns@vku.udn.vn", // <- Địa chỉ đã verify
+      to: "dthlam.co@gmail.com", // <- Người nhận (email của bạn)
+      from: "dthlam.co@gmail.com", // <- Địa chỉ đã verify
       subject: "📦 Có người vừa đăng ký gói cước mới!",
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9;">
@@ -54,8 +54,8 @@ const sendEmailRegister = async ({ name, phone, address, packageName, packageTyp
 const sendCameraRegisterEmail = async ({ name, phone, address }) => {
   try {
     const msg = {
-       to: "lamdt.23ns@vku.udn.vn", // <- Người nhận (email của bạn)
-      from: "lamdt.23ns@vku.udn.vn", // <- Địa chỉ đã verify
+       to: "dthlam.co@gmail.com", // <- Người nhận (email của bạn)
+      from: "dthlam.co@gmail.com", // <- Địa chỉ đã verify
       subject: "📷 Đăng ký lắp đặt Camera từ khách hàng",
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px;">
@@ -97,8 +97,8 @@ const sendConsultEmail = async ({ contactInfo }) => {
     const contactLabel = isEmail ? "Email" : "Số điện thoại";
 
     const msg = {
-      to: "lamdt.23ns@vku.udn.vn", // Email admin
-      from: "lamdt.23ns@vku.udn.vn", // Email đã verify
+      to: "dthlam.co@gmail.com", // Email admin
+      from: "dthlam.co@gmail.com", // Email đã verify
       subject: "📞 Yêu cầu tư vấn từ khách hàng",
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9;">
