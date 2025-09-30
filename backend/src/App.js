@@ -162,12 +162,12 @@ app.post("/register", [
   const { name, phone, address, packageName, packageType, token } = req.body;
 
   try {
-    const recaptchaData = await verifyRecaptcha(token);
-    console.log("reCAPTCHA data:", recaptchaData);
+    // const recaptchaData = await verifyRecaptcha(token);
+    // console.log("reCAPTCHA data:", recaptchaData);
 
-    if (!recaptchaData.success || recaptchaData.score < 0.7) {
-      return res.status(403).json({ success: false, message: "Xác minh reCAPTCHA thất bại" });
-    }
+    // if (!recaptchaData.success || recaptchaData.score < 0.7) {
+    //   return res.status(403).json({ success: false, message: "Xác minh reCAPTCHA thất bại" });
+    // }
 
     await sendEmailRegister({ name, phone, address, packageName, packageType });
     return res.json({ success: true });
