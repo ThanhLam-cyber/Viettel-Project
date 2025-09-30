@@ -16,7 +16,9 @@ const PORT = process.env.PORT || 3000;
 const allowedOrigins = [
   "https://viettel-project.vercel.app",
   "https://viettel-project-djoan-thanh-lams-projects-d7d2a1fb.vercel.app",
-  "https://viettel-project-git-master-djoan-thanh-lams-projects-d7d2a1fb.vercel.app"
+  "https://viettel-project-git-master-djoan-thanh-lams-projects-d7d2a1fb.vercel.app",
+   "http://localhost:3000" ,// thêm cho dev local
+   "http://localhost:5173", // cho Vite dev server
 ];
 
 app.use(cors({

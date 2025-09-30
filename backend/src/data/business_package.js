@@ -1,4 +1,4 @@
-const buissiness_package = [
+const business_package = [
   {
     name: "VIP200 (1 IP Tĩnh)",
     domesticBandwidth: "200Mbps",
@@ -121,4 +121,4 @@ const metadataNote = `
 `;
 
 
-module.exports = {buissiness_package,metadataNote};
+module.exports = {business_package,metadataNote};

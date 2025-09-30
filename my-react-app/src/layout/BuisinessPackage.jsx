@@ -63,7 +63,7 @@ function BuisinessPackage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {packages.map((pkg, index) => (
+                                    {packages?.map((pkg, index) => (
                                         <tr
                                             key={index}
                                             className={`border-b border-gray-200 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"} hover:bg-gray-100`}
