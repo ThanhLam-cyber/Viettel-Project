@@ -83,11 +83,11 @@ app.get("/metrics", async (req, res) => {
 });
 
 // === API dữ liệu ===
-app.get("/business-package", (req, res) => {
+app.get("/business_package", (req, res) => {
   try {
     res.json({ business_package, metadataNote });
   } catch (error) {
-    console.error("Error in /business-package:", error);
+    console.error("Error in /business_package:", error);
     res.status(500).json({ success: false, message: "Lỗi tải dữ liệu gói doanh nghiệp" });
   }
 });
@@ -152,7 +152,7 @@ app.post("/register", [
   body('address').trim().notEmpty().escape().withMessage('Địa chỉ không hợp lệ'),
   body('packageName').trim().notEmpty().escape().withMessage('Tên gói không hợp lệ'),
   body('packageType').trim().notEmpty().escape().withMessage('Loại gói không hợp lệ'),
-  body('token').notEmpty().withMessage('Thiếu token reCAPTCHA')
+
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
