@@ -146,20 +146,9 @@ app.post("/register-consult", [
 });
 
 // === Route đăng ký ===
-app.post("/register", [
-  body('name').trim().notEmpty().escape().withMessage('Tên không hợp lệ'),
-  body('phone').trim().matches(/^[0-9]{10,11}$/).withMessage('Số điện thoại không hợp lệ'),
-  body('address').trim().notEmpty().escape().withMessage('Địa chỉ không hợp lệ'),
-  body('packageName').trim().notEmpty().escape().withMessage('Tên gói không hợp lệ'),
-  body('packageType').trim().notEmpty().escape().withMessage('Loại gói không hợp lệ'),
-
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ success: false, message: errors.array()[0].msg });
-  }
-
+app.post("/register", async (req, res) => {
   const { name, phone, address, packageName, packageType, token } = req.body;
+  // if (!token) return res.status(400).json({ success: false, message: "Thiếu token reCAPTCHA" });
 
   try {
     // const recaptchaData = await verifyRecaptcha(token);
@@ -178,24 +167,18 @@ app.post("/register", [
   }
 });
 
-app.post("/register-camera", [
-  body('name').trim().notEmpty().escape().withMessage('Tên không hợp lệ'),
-  body('phone').trim().matches(/^[0-9]{10,11}$/).withMessage('Số điện thoại không hợp lệ'),
-  body('address').trim().notEmpty().escape().withMessage('Địa chỉ không hợp lệ')
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ success: false, message: errors.array()[0].msg });
-  }
-
+app.post("/register-camera", async (req, res) => {
   const { name, phone, address } = req.body;
+
+  if (!name || !phone || !address) {
+    return res.status(400).json({ error: "Thiếu thông tin." });
+  }
 
   try {
     await sendCameraRegisterEmail({ name, phone, address });
     res.json({ success: true });
-  } catch (error) {
-    console.error("Lỗi xử lý đăng ký camera:", error);
-    res.status(500).json({ success: false, message: "Lỗi máy chủ" });
+  } catch {
+    res.status(500).json({ error: "Gửi mail thất bại." });
   }
 });
 

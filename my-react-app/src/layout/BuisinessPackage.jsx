@@ -15,7 +15,7 @@ function BuisinessPackage() {
         fetch(`${API_URL}/business_package`)
             .then((res) => res.json())
             .then((data) => {
-                setPackages(data.buissiness_package);
+               setPackages(data.business_package);
                 setNote(data.metadataNote);
                 setIsLoading(false);
             })
