@@ -7,7 +7,7 @@ const rateLimit = require("express-rate-limit");
 const { body, validationResult } = require("express-validator");
 const morgan = require("morgan");
 const hpp = require("hpp"); // ✅ Thêm hpp để chống HTTP Parameter Pollution
-// Removed xss-clean to resolve compatibility issue causing TypeError on req.query
+// Removed xss-clean to resolve compatibility issue
 const client = require("prom-client");
 const { sendEmailRegister, sendCameraRegisterEmail, sendConsultEmail } = require("../src/email/account");
 const { business_package, metadataNote } = require('./data/business_package');
@@ -55,9 +55,9 @@ app.use("/register", registerLimiter);
 app.use("/register-camera", registerLimiter);
 app.use("/register-consult", registerLimiter);
 
-// ✅ Enforce HTTPS ở production
+// ✅ Enforce HTTPS ở production, sử dụng x-forwarded-proto cho proxy như Render
 app.use((req, res, next) => {
-  if (process.env.NODE_ENV === 'production' && !req.secure) {
+  if (process.env.NODE_ENV === 'production' && req.headers['x-forwarded-proto'] !== 'https') {
     return res.redirect(301, `https://${req.headers.host}${req.url}`);
   }
   next();
