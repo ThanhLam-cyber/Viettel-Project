@@ -15,50 +15,38 @@ function RegisterFormModal({ onClose, pkg }) {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setIsSubmitting(true);
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-        try {
-            // ✅ Lấy token từ reCAPTCHA trước
-            await new Promise((resolve) => {
-                grecaptcha.enterprise.ready(resolve);
-            });
+    try {
+        const payload = {
+            ...formData,
+            packageName: pkg.name,
+            packageType: pkg.type || "DoanhNghiep", // fallback nếu không có type
+        };
 
+        const response = await fetch(`${API_URL}/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+        });
 
-            const token = await grecaptcha.enterprise.execute(
-                '6LcYGJUrAAAAAO-iMo0qDXIiiZQCR3J6UFkUl41a',
-                { action: 'submit' }
-            );
-
-            // ✅ Gửi form kèm token
-            const payload = {
-                ...formData,
-                packageName: pkg.name,
-                packageType: pkg.type,
-                token, // thêm token vào
-            };
-
-            const response = await fetch(`${API_URL}/register`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
-
-            if (response.ok) {
-                setSubmitted(true);
-            } else {
-                alert("Đăng ký thất bại. Vui lòng thử lại.");
-            }
-        } catch (error) {
-            console.error("Lỗi gửi dữ liệu:", error);
-            alert("Có lỗi xảy ra.");
-        } finally {
-            setIsSubmitting(false);
+        if (response.ok) {
+            setSubmitted(true);
+        } else {
+            alert("Đăng ký thất bại. Vui lòng thử lại.");
         }
-    };
+    } catch (error) {
+        console.error("Lỗi gửi dữ liệu:", error);
+        alert("Có lỗi xảy ra.");
+    } finally {
+        setIsSubmitting(false);
+    }
+};
+
 
 
     return (

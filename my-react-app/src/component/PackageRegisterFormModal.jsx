@@ -15,49 +15,39 @@ function PackageRegisterFormModal({ onClose, pkg }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    try {
-      // Wait for reCAPTCHA to be ready
-      await new Promise((resolve) => {
-        grecaptcha.enterprise.ready(resolve);
-      });
+  try {
+    // Chỉ gửi dữ liệu form, không gọi grecaptcha nữa
+    const payload = {
+      ...formData,
+      packageName: pkg.name,
+      packageType: pkg.type || "sim", // fallback nếu type không có
+    };
 
-      const token = await grecaptcha.enterprise.execute(
-        '6LcYGJUrAAAAAO-iMo0qDXIiiZQCR3J6UFkUl41a',
-        { action: 'submit' }
-      );
+    const response = await fetch(`${API_URL}/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
-      // Prepare payload with package details
-      const payload = {
-        ...formData,
-        packageName: pkg.name,
-        packageType: pkg.type || "sim", // Default to 'sim' if type is undefined
-        token,
-      };
-
-      const response = await fetch(`${API_URL}/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (response.ok) {
-        setSubmitted(true);
-      } else {
-        alert("Đăng ký thất bại. Vui lòng thử lại.");
-      }
-    } catch (error) {
-      console.error("Lỗi gửi dữ liệu:", error);
-      alert("Có lỗi xảy ra.");
-    } finally {
-      setIsSubmitting(false);
+    if (response.ok) {
+      setSubmitted(true);
+    } else {
+      alert("Đăng ký thất bại. Vui lòng thử lại.");
     }
-  };
+  } catch (error) {
+    console.error("Lỗi gửi dữ liệu:", error);
+    alert("Có lỗi xảy ra.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">

@@ -25,30 +25,21 @@ function BuisinessPackageRegisterForm({ onClose, pkg }) {
         setIsSubmitting(true);
         setError(null);
 
-        try {
-            await new Promise((resolve) => {
-                grecaptcha.enterprise.ready(resolve);
-            });
+   try {
+    const payload = {
+        ...formData,
+        packageName: pkg.name,
+        packageType: pkg.type || "DoanhNghiep",
+    };
 
-            const token = await grecaptcha.enterprise.execute(
-                '6LcYGJUrAAAAAO-iMo0qDXIiiZQCR3J6UFkUl41a',
-                { action: 'submit' }
-            );
+    const response = await fetch(`${API_URL}/register`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+    });
 
-            const payload = {
-                ...formData,
-                packageName: pkg.name,
-                packageType: pkg.type || "DoanhNghiep",
-                token,
-            };
-
-            const response = await fetch(`${API_URL}/register`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
-            });
 
             if (response.ok) {
                 setSubmitted(true);
