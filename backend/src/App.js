@@ -7,10 +7,10 @@ const rateLimit = require("express-rate-limit");
 const { body, validationResult } = require("express-validator");
 const morgan = require("morgan");
 const hpp = require("hpp"); // ✅ Thêm hpp để chống HTTP Parameter Pollution
-const xss = require("xss-clean"); // ✅ Thêm xss-clean để sanitize input chống XSS
+// Removed xss-clean to resolve compatibility issue causing TypeError on req.query
 const client = require("prom-client");
 const { sendEmailRegister, sendCameraRegisterEmail, sendConsultEmail } = require("../src/email/account");
-const { business_package, metadataNote } = require('./data/business_package'); // ✅ Sửa spelling "buissiness" thành "business" và điều chỉnh path cho nhất quán
+const { business_package, metadataNote } = require('./data/business_package');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const allowedOrigins = [
@@ -36,7 +36,6 @@ app.use(helmet({
 })); // ✅ Cấu hình helmet chi tiết hơn với CSP
 app.use(morgan('combined'));
 app.use(hpp()); // ✅ Chống HTTP Parameter Pollution
-app.use(xss()); // ✅ Sanitize input chống XSS
 
 // ✅ Giới hạn yêu cầu chung
 const limiter = rateLimit({
@@ -80,10 +79,38 @@ app.get("/metrics", async (req, res) => {
 });
 
 // === API dữ liệu ===
-app.get("/business-package", (req, res) => res.json({ business_package, metadataNote })); // ✅ Sửa tên biến
-app.get("/sim-data", (req, res) => res.json(viettelSimData));
-app.get("/internet-data", (req, res) => res.json({ viettelInternet, prepaidFees, tvChannelMapping }));
-app.get("/chat-script", (req, res) => res.json(chatScript));
+app.get("/business-package", (req, res) => {
+  try {
+    res.json({ business_package, metadataNote });
+  } catch (error) {
+    console.error("Error in /business-package:", error);
+    res.status(500).json({ success: false, message: "Lỗi tải dữ liệu gói doanh nghiệp" });
+  }
+});
+app.get("/sim-data", (req, res) => {
+  try {
+    res.json(viettelSimData);
+  } catch (error) {
+    console.error("Error in /sim-data:", error);
+    res.status(500).json({ success: false, message: "Lỗi tải dữ liệu SIM" });
+  }
+});
+app.get("/internet-data", (req, res) => {
+  try {
+    res.json({ viettelInternet, prepaidFees, tvChannelMapping });
+  } catch (error) {
+    console.error("Error in /internet-data:", error);
+    res.status(500).json({ success: false, message: "Lỗi tải dữ liệu internet" });
+  }
+});
+app.get("/chat-script", (req, res) => {
+  try {
+    res.json(chatScript);
+  } catch (error) {
+    console.error("Error in /chat-script:", error);
+    res.status(500).json({ success: false, message: "Lỗi tải chat script" });
+  }
+});
 
 // === Xác minh reCAPTCHA ===
 async function verifyRecaptcha(token) {
@@ -120,7 +147,7 @@ app.post("/register", [
   body('phone').trim().matches(/^[0-9]{10,11}$/).withMessage('Số điện thoại không hợp lệ'),
   body('address').trim().notEmpty().escape().withMessage('Địa chỉ không hợp lệ'),
   body('packageName').trim().notEmpty().escape().withMessage('Tên gói không hợp lệ'),
-  body('packageType').trim().notEmpty().escape().withMessage('Loại gói không hợp lệ'), // ✅ Sửa typo "notEmpt" thành "notEmpty"
+  body('packageType').trim().notEmpty().escape().withMessage('Loại gói không hợp lệ'),
   body('token').notEmpty().withMessage('Thiếu token reCAPTCHA')
 ], async (req, res) => {
   const errors = validationResult(req);
