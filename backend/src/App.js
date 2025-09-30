@@ -123,18 +123,12 @@ app.get("/chat-script", (req, res) => {
 //   return res.json();
 // }
 
-app.post("/register-consult", [
-  body('contactInfo.name').trim().notEmpty().escape().withMessage('Tên không hợp lệ'),
-  body('contactInfo.phone').trim().matches(/^[0-9]{10,11}$/).withMessage('Số điện thoại không hợp lệ'),
-  body('contactInfo.address').trim().notEmpty().escape().withMessage('Địa chỉ không hợp lệ'),
-  body('contactInfo.email').optional().trim().isEmail().normalizeEmail().withMessage('Email không hợp lệ')
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ success: false, message: errors.array()[0].msg });
-  }
-
+app.post("/register-consult", async (req, res) => {
   const { contactInfo } = req.body;
+
+  if (!contactInfo) {
+    return res.status(400).json({ success: false, message: "Thiếu thông tin liên hệ" });
+  }
 
   try {
     await sendConsultEmail({ contactInfo });
@@ -144,7 +138,6 @@ app.post("/register-consult", [
     return res.status(500).json({ success: false, message: "Lỗi máy chủ" });
   }
 });
-
 // === Route đăng ký ===
 app.post("/register", async (req, res) => {
   const { name, phone, address, packageName, packageType, token } = req.body;
