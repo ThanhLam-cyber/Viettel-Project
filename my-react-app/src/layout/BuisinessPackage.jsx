@@ -12,7 +12,7 @@ function BuisinessPackage() {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(`${API_URL}/business-package`)
+        fetch(`${API_URL}/business_package`)
             .then((res) => res.json())
             .then((data) => {
                 setPackages(data.buissiness_package);
