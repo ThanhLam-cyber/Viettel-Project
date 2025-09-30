@@ -56,15 +56,15 @@ app.use("/register-camera", registerLimiter);
 app.use("/register-consult", registerLimiter);
 
 // ✅ Enforce HTTPS ở production, sử dụng x-forwarded-proto cho proxy như Render
-app.use((req, res, next) => {
-  if (process.env.NODE_ENV === 'production') {
-    const proto = req.get('x-forwarded-proto');
-    if (proto && proto !== 'https') {
-      return res.redirect(301, `https://${req.headers.host}${req.url}`);
-    }
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   if (process.env.NODE_ENV === 'production') {
+//     const proto = req.get('x-forwarded-proto');
+//     if (proto && proto !== 'https') {
+//       return res.redirect(301, `https://${req.headers.host}${req.url}`);
+//     }
+//   }
+//   next();
+// });
 
 
 // === Biến môi trường ===
