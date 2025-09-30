@@ -17,8 +17,6 @@ const allowedOrigins = [
   "https://viettel-project.vercel.app",
   "https://viettel-project-djoan-thanh-lams-projects-d7d2a1fb.vercel.app",
   "https://viettel-project-git-master-djoan-thanh-lams-projects-d7d2a1fb.vercel.app",
-   "http://localhost:3000" ,// thêm cho dev local
-   "http://localhost:5173", // cho Vite dev server
 ];
 
 app.use(cors({
@@ -119,11 +117,11 @@ app.get("/chat-script", (req, res) => {
 });
 
 // === Xác minh reCAPTCHA ===
-async function verifyRecaptcha(token) {
-const url = `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET}&response=${token}`;
-  const res = await fetch(url, { method: "POST" });
-  return res.json();
-}
+// async function verifyRecaptcha(token) {
+// const url = `https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET}&response=${token}`;
+//   const res = await fetch(url, { method: "POST" });
+//   return res.json();
+// }
 
 app.post("/register-consult", [
   body('contactInfo.name').trim().notEmpty().escape().withMessage('Tên không hợp lệ'),
