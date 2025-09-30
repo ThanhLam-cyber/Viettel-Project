@@ -23,7 +23,7 @@ app.use(cors({
   origin: allowedOrigins,
   credentials: true
 }));
-
+app.set("trust proxy", 1);
 app.use(express.json({ limit: '50kb' })); // ✅ Giới hạn kích thước body để chống DoS
 // app.use(helmet({
 //   contentSecurityPolicy: {
@@ -39,7 +39,7 @@ app.use(hpp()); // ✅ Chống HTTP Parameter Pollution
 
 // ✅ Giới hạn yêu cầu chung
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
+  windowMs: 65 * 60 * 1000,
   max: 100,
   message: "Quá nhiều yêu cầu từ IP này, vui lòng thử lại sau."
 });
