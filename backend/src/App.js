@@ -23,15 +23,6 @@ app.use(cors({
   origin: allowedOrigins,
   credentials: true
 }));
-app.use((req, res, next) => {
-  if (process.env.NODE_ENV === 'production') {
-    const proto = req.get('x-forwarded-proto');
-    if (proto && proto !== 'https') {
-      return res.redirect(301, `https://${req.headers.host}${req.url}`);
-    }
-  }
-  next();
-});
 
 app.use(express.json({ limit: '50kb' })); // ✅ Giới hạn kích thước body để chống DoS
 // app.use(helmet({
@@ -66,11 +57,15 @@ app.use("/register-consult", registerLimiter);
 
 // ✅ Enforce HTTPS ở production, sử dụng x-forwarded-proto cho proxy như Render
 app.use((req, res, next) => {
-  if (process.env.NODE_ENV === 'production' && req.headers['x-forwarded-proto'] !== 'https') {
-    return res.redirect(301, `https://${req.headers.host}${req.url}`);
+  if (process.env.NODE_ENV === 'production') {
+    const proto = req.get('x-forwarded-proto');
+    if (proto && proto !== 'https') {
+      return res.redirect(301, `https://${req.headers.host}${req.url}`);
+    }
   }
   next();
 });
+
 
 // === Biến môi trường ===
 const RECAPTCHA_SECRET = process.env.RECAPTCHA_SECRET;
