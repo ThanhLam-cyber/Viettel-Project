@@ -34,15 +34,15 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json({ limit: '50kb' })); // ✅ Giới hạn kích thước body để chống DoS
-app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'"],
-      // Thêm các directives khác nếu cần
-    }
-  }
-})); // ✅ Cấu hình helmet chi tiết hơn với CSP
+// app.use(helmet({
+//   contentSecurityPolicy: {
+//     directives: {
+//       defaultSrc: ["'self'"],
+//       scriptSrc: ["'self'"],
+//       // Thêm các directives khác nếu cần
+//     }
+//   }
+// })); // ✅ Cấu hình helmet chi tiết hơn với CSP
 app.use(morgan('combined'));
 app.use(hpp()); // ✅ Chống HTTP Parameter Pollution
 
